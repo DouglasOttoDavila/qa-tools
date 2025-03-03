@@ -1,0 +1,21 @@
+{% extends "base_template.html" %}
+
+{% block title %}Review Requirements{% endblock %}
+
+{% block content %}
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/styles.css') }}">
+    <div class="container">
+        <h2 class="text-center">Requirement Quality Analyzer</h2>
+        <p class="text-center">Paste business requirements below and analyze their quality.</p>
+        
+        <div id="inputField" class="input-container" contenteditable="true" placeholder="Paste your formatted text here..."></div>
+        
+        <button class="btn btn-primary w-100" onclick="processContent()">Process</button>
+        
+        <div id="results" class="results-container">
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+{% endblock %}
+
