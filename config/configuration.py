@@ -1,6 +1,6 @@
 JSON_MIMETYPE = "application/json"
 API_PREFIX = "/api/v1/"
-MODE = "vault" # "local" or "vault"
+MODE = "local" # "local" or "vault"
 
 PROMPTS = {
     "ANALYSIS_PROMPT" : """
