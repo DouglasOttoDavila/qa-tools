@@ -4,7 +4,7 @@
 
 This project is a Requirement Quality Analyzer tool, designed to evaluate the quality of business requirements based on clarity, completeness, testability, feasibility, relevance, and acceptance criteria.
 
-<img src="https://github.com/user-attachments/assets/934fe22a-6680-4426-bfbd-a6be053f858e" alt="drawing" width="400"/>
+<img src="https://i.ibb.co/nXLsGK8/418405422-934fe22a-6680-4426-bfbd-a6be053f858e.png" alt="drawing" width="500"/>
 
 ## Features
 
