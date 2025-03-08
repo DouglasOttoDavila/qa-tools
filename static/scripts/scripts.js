@@ -30,69 +30,36 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
-function processContent() {
-    const content = document.getElementById("inputField").innerHTML;
-    fetch("/api/v1/process_requirements", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({content: content})
-    })
-    .then(response => response.json())
-    .then(data => {
-        console.log(data);
-        //document.getElementById("results").innerHTML = marked.parse(`<strong>Analyzed Content:</strong><br>${data.response}`);
-        const resultsDiv = document.getElementById("results");
-        renderEvaluationTable(data, resultsDiv);
-        resultsDiv.style.display = "block";
-    })
-    .catch(error => {
-        console.error("Error:", error);
-    });
-}
+function renderModal(title, content) {
+    let processedContent = content;
+    const urlRegex = /(https?:\/\/[^\s]+)/g;
+    processedContent = processedContent.replace(urlRegex, '<a href="$1" target="_blank">$1</a>');
 
-function renderEvaluationTable(data, resultsDiv) {
-    resultsDiv.innerHTML = "";
-    const table = document.createElement("table");
-    table.className = "table table-dark table-striped table-bordered";
-    table.innerHTML = `
-        <thead>
-            <tr>
-                <th colspan="2" class="bg-primary text-white">User Story Evaluation</th>
-            </tr>
-        </thead>
-        <tbody>
-            ${Object.entries(data.evaluation).map(([key, value]) => `
-                <tr>
-                    <td class="text-capitalize">${key.replace("_", " ")}</td>
-                    <td>
-                        <strong>Score:</strong> ${value.score}<br>
-                        <strong>Feedback:</strong> ${value.feedback}
-                    </td>
-                </tr>
-            `).join('')}
-            <tr>
-                <td><strong>Overall Score</strong></td>
-                <td>${data.overall_score}</td>
-            </tr>
-            <tr>
-                <td><strong>Total Score</strong></td>
-                <td>${data.total_score}</td>
-            </tr>
-            <tr>
-                <td colspan="2"><strong>Summary:</strong> ${formatMarkdown(data.summary)}</td>
-            </tr>
-            <tr>
-                <td colspan="2"><h2>Suggested Story Content</h2> ${formatMarkdown(data.suggested_user_story)}</td>
-            </tr>
-        </tbody>
+    const modalHtml = `
+        <div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="myModalLabel">${title}</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        ${processedContent}
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     `;
-    resultsDiv.appendChild(table);
-}
 
-function formatMarkdown(text) {
-    text = text.replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>");
-    text = text.replace(/\n/g, "<br>");
-    return text;
+    document.body.insertAdjacentHTML('beforeend', modalHtml);
+
+    const myModal = new bootstrap.Modal(document.getElementById('myModal'));
+    myModal.show();
+
+    document.getElementById('myModal').addEventListener('hidden.bs.modal', function (event) {
+        document.getElementById('myModal').remove();
+    });
 }

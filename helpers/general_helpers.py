@@ -1,12 +1,13 @@
 import re
 from flask import json
-from config.configuration import MODE, PROMPTS
+from config.configuration import MODE
+from modules.user_story_analyzer.config.configuration import PROMPTS
 from dotenv import load_dotenv
 from services.infisical_sdk import get_infisical_secret
 
 load_dotenv()
 
-def get_dynamic_values(folder_path:str,secret_name:str,environment:str):
+def get_dynamic_values(folder_path:str, secret_name:str, environment:str):
     """
     Gets a dynamic value from Infisical (if configured as the vault) or from an environment variable.
     

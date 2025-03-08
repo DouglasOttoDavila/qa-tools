@@ -50,3 +50,7 @@ body {
 #sidebar-nav {
     margin-top: 30px;
 }
+
+.modal-content {
+    color: black;
+}
