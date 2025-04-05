@@ -1,3 +1,5 @@
+JIRA_PROJECT_KEY="KAN" # Jira Project Key
+JIRA_ISSUE_TYPE="Task" # Jira Issue Type
 PROMPTS = {
     "ANALYSIS_PROMPT" : """
         Analyze the following user story for quality and adherence to best practices. Evaluate it based on clarity, completeness, testability, feasibility, relevance, and acceptance criteria. Provide a structured assessment, scoring each criterion from 1 (Poor) to 5 (Excellent) based on the defined evaluation system. Include a summary of strengths and weaknesses and suggest improvements.

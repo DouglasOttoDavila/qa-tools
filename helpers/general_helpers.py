@@ -1,4 +1,5 @@
 import re
+import html2text
 from flask import json
 from config.configuration import MODE
 from modules.user_story_analyzer.config.configuration import PROMPTS
@@ -73,3 +74,22 @@ def clean_and_parse_json(text):
     except:
         print(f"Failed to parse JSON: {text}")
         return text
+    
+
+def html_to_markdown(html_string):
+    """
+    Converts HTML to Markdown, preserving the structure of the given HTML.
+
+    Args:
+        html_string (str): The HTML string to convert.
+
+    Returns:
+        str: The Markdown equivalent of the HTML.
+    """
+    h = html2text.HTML2Text()
+    h.ignore_links = False # Important for preserving links
+    h.ignore_images = True
+    h.ignore_tables = False # Important to properly format the table
+    h.body_width = 0 # Prevent line wrapping
+    markdown = h.handle(html_string)
+    return markdown
